@@ -10,18 +10,21 @@ use Illuminate\Support\Facades\DB;
 
 class DonasiController extends Controller
 {
-    public function index()
+    // Halaman beranda (landing page)
+    public function home()
     {
         $dataDonasi = Donasi::with(['donatur', 'kategori'])->latest()->get();
         return view('donasi.index', compact('dataDonasi'));
     }
 
+    // Form donasi baru
     public function create()
     {
         $kategori = KategoriDonasi::all();
         return view('donasi.create', compact('kategori'));
     }
 
+    // Simpan donasi
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -51,6 +54,13 @@ class DonasiController extends Controller
             ]);
         });
 
-        return redirect()->route('donasi.history')->with('success', 'Donasi berhasil disimpan!');
+        return redirect()->route('home')->with('success', 'Donasi berhasil disimpan! Terima kasih atas kebaikan Anda.');
+    }
+
+    // Halaman riwayat donasi lengkap
+    public function history()
+    {
+        $dataDonasi = Donasi::with(['donatur', 'kategori'])->latest()->get();
+        return view('donasi.history', compact('dataDonasi'));
     }
 }

@@ -3,7 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DonasiController;
 
-Route::get('/', [DonasiController::class, 'index'])->name('home');
+// Halaman beranda (landing page)
+Route::get('/', [DonasiController::class, 'home'])->name('home');
+
+// Form donasi
 Route::get('/donasi/baru', [DonasiController::class, 'create'])->name('donasi.create');
+
+// Simpan donasi
 Route::post('/donasi/simpan', [DonasiController::class, 'store'])->name('donasi.store');
-Route::get('/donasi/riwayat', [DonasiController::class, 'index'])->name('donasi.history');
+
+// Riwayat donasi lengkap
+Route::get('/donasi/riwayat', [DonasiController::class, 'history'])->name('donasi.history');
